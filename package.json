@@ -1,0 +1,17 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jira_issue_creator.js",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "es6-promise": "^4.0.5",
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node ./jira_issue_creator.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
