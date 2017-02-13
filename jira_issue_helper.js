@@ -26,6 +26,10 @@ function createJiraIssue(title) {
       "project": {
         "key": PROJECT_KEY
       },
+      "assignee": {
+        // empty string means Unassigned user
+        "name": ""
+      },
       "summary": `Add unit test for ${title} component`,
       "description": `Create unit test for ${title} component to catch more UI-related bugs`,
       "issuetype": {
@@ -61,6 +65,10 @@ function updateJiraIssue(id) {
   const authBase64Hash = new Buffer(`${USERNAME}:${PASSWORD}`).toString('base64');
   const BODY = {
     "fields": {
+      "assignee": {
+        // empty string means Unassigned user
+        "name": ""
+      },
       "labels": ["black_hole"]
     }
   };
@@ -74,7 +82,7 @@ function updateJiraIssue(id) {
   })
   .then((res) => {
     if (res.status >= 400) {
-      console.log(res.json().then(obj => {console.log(obj)}));
+      res.json().then(obj => {console.log(obj)});
       console.log(`Update issue with ID: ${id} failed`);
     } else {
       console.log(`Update issue with ID: ${id} succeeded`);
