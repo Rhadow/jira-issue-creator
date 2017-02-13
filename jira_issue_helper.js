@@ -8,18 +8,20 @@ const PASSWORD = process.env.HONESTBEE_PASSWORD;
 const PROJECT_KEY = 'TP';
 const EPIC_KEY = 'TP-59';
 const TITLES = [
-  'Repetitive Title 1',
-  'Repetitive Title 2'
+  'Title 1',
+  'Title 2',
+  'Title 3',
+  'Title 4'
 ];
 
-function jiraIssueCreator(titles) {
+module.exports.jiraIssueCreator = function (titles) {
   titles.forEach(title => createJiraIssue(title));
 }
 
 function createJiraIssue(title) {
   console.log(`Creating issue with title name ${title}`);
   const authBase64Hash = new Buffer(`${USERNAME}:${PASSWORD}`).toString('base64');
-  const body = {
+  const BODY = {
     "fields": {
       "project": {
         "key": PROJECT_KEY
@@ -39,7 +41,7 @@ function createJiraIssue(title) {
       'Authorization': `Basic ${authBase64Hash}`,
       'Content-Type': 'application/json'
     },
-    'body': JSON.stringify(body)
+    'body': JSON.stringify(BODY)
   })
   .then((res) => {
     if (res.status >= 400) {
@@ -50,4 +52,34 @@ function createJiraIssue(title) {
   });
 }
 
-jiraIssueCreator(TITLES);
+module.exports.jiraIssueUpdator = function (ids) {
+  ids.forEach(id => updateJiraIssue(id));
+}
+
+function updateJiraIssue(id) {
+  console.log(`Updating issue with ID: ${id}`);
+  const authBase64Hash = new Buffer(`${USERNAME}:${PASSWORD}`).toString('base64');
+  const BODY = {
+    "fields": {
+      "labels": ["black_hole"]
+    }
+  };
+  fetch(`${TARGET_URL}${id}`, {
+    'method': 'PUT',
+    'headers': {
+      'Authorization': `Basic ${authBase64Hash}`,
+      'Content-Type': 'application/json'
+    },
+    'body': JSON.stringify(BODY)
+  })
+  .then((res) => {
+    if (res.status >= 400) {
+      console.log(res.json().then(obj => {console.log(obj)}));
+      console.log(`Update issue with ID: ${id} failed`);
+    } else {
+      console.log(`Update issue with ID: ${id} succeeded`);
+    }
+  });
+}
+
+// jiraIssueCreator(TITLES);
