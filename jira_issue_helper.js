@@ -61,7 +61,7 @@ module.exports.jiraIssueUpdator = function (ids) {
 }
 
 function updateJiraIssue(id) {
-  console.log(`Updating issue with ID: ${id}`);
+  console.log(`Updating issue with ID: ${id} at ${TARGET_URL}${id}`);
   const authBase64Hash = new Buffer(`${USERNAME}:${PASSWORD}`).toString('base64');
   const BODY = {
     "fields": {
