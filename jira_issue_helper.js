@@ -5,14 +5,8 @@ require('isomorphic-fetch');
 const TARGET_URL = 'https://honestbee.atlassian.net/rest/api/2/issue/';
 const USERNAME = process.env.HONESTBEE_ACCOUNT;
 const PASSWORD = process.env.HONESTBEE_PASSWORD;
-const PROJECT_KEY = 'TP';
-const EPIC_KEY = 'TP-59';
-const TITLES = [
-  'Title 1',
-  'Title 2',
-  'Title 3',
-  'Title 4'
-];
+const PROJECT_KEY = 'CWEB';
+const EPIC_KEY = 'CWEB-1522';
 
 module.exports.jiraIssueCreator = function (titles) {
   titles.forEach(title => createJiraIssue(title));
@@ -30,8 +24,8 @@ function createJiraIssue(title) {
         // empty string means Unassigned user
         "name": ""
       },
-      "summary": `Add unit test for ${title} component`,
-      "description": `Create unit test for ${title} component to catch more UI-related bugs`,
+      "summary": `Refactor ${title} reducer`,
+      "description": `*What:*\n Refactor redux reducer to make it extendable for future verticals.\n\n*How:*\nCombine ${title} reducer under correct category (common, groceries, food...) and modify current codebase to adapt this change.`,
       "issuetype": {
         "name": "Tech Task"
       },
@@ -89,5 +83,3 @@ function updateJiraIssue(id) {
     }
   });
 }
-
-// jiraIssueCreator(TITLES);
